@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             applicationContext,
             94,
             Intent(applicationContext, NearbyReceiver::class.java),
-            PendingIntent.FLAG_UPDATE_CURRENT or FLAG_MUTABLE_IF_SUPPORTED
+            PendingIntent.FLAG_UPDATE_CURRENT
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,13 +73,5 @@ class MainActivity : AppCompatActivity() {
             .addOnCanceledListener {
                 Timber.d("Unsubscribe canceled")
             }
-    }
-
-    companion object {
-        val FLAG_MUTABLE_IF_SUPPORTED = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            PendingIntent.FLAG_MUTABLE
-        } else {
-            0
-        }
     }
 }
