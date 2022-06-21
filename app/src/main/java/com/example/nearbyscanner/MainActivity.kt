@@ -11,6 +11,12 @@ import com.google.android.gms.nearby.messages.*
 import timber.log.Timber
 import java.util.*
 
+private val FLAG_MUTABLE_IF_SUPPORTED = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+    PendingIntent.FLAG_MUTABLE
+} else {
+    0
+}
+
 class MainActivity : AppCompatActivity() {
 
     private val nearbyClient: MessagesClient
@@ -27,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             applicationContext,
             94,
             Intent(applicationContext, NearbyReceiver::class.java),
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_UPDATE_CURRENT or FLAG_MUTABLE_IF_SUPPORTED
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {
